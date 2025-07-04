@@ -1,16 +1,45 @@
 # flutter_package_browser
 
-A new Flutter project.
+A Flutter application that browses packages from [pub.dev](https://pub.dev).  
+This app fetches and displays package listings and their detailed metadata via the public API.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Browse the list of packages from pub.dev
+- View detailed information about each package (description, versions, publisher)
+- Open homepage or repository links in a browser
+- Built with Riverpod (state management) and GoRouter (navigation)
 
-A few resources to get you started if this is your first Flutter project:
+## Environment
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter SDK: 3.29.3
+- Dart SDK: bundled with Flutter
+- Platform: Android / iOS
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Dependencies
+
+- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [go_router](https://pub.dev/packages/go_router)
+- [flutter_hooks](https://pub.dev/packages/flutter_hooks)
+
+## Architecture
+
+This project adopts a simple layered architecture inspired by clean architecture principles.
+The structure is organized as follows:
+
+```
+lib/
+├── features/          # UI and screen logic for each feature
+├── infrastructure/    # API clients and data sources
+├── domain/            # Models and interfaces (optional)
+├── router.dart        # Navigation with GoRouter
+├── app.dart           # Root widget
+└── main.dart          # App entry point
+```
+
+### Why this architecture?
+
+- Separation of concerns: Clear boundaries between UI, state, and data layers
+- Scalability: Easy to extend when adding more screens or features
+- Testability: Each layer can be tested in isolation
+- Familiarity: Follows common Flutter community practices (e.g., Riverpod + GoRouter)
