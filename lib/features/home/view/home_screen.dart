@@ -37,7 +37,7 @@ class HomeScreen extends HookConsumerWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('エラー'),
+              title: const Text('Error'),
               content: Text(_friendlyErrorMessage(uiState.errorMessage!)),
               actions: [
                 TextButton(
@@ -70,7 +70,7 @@ class HomeScreen extends HookConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: '再読み込み',
+            tooltip: 'Reload',
             onPressed: () => notifier.send(const HomeAction.onAppear()),
           ),
         ],
@@ -102,7 +102,7 @@ class HomeScreen extends HookConsumerWidget {
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                     ),
                     icon: const Icon(Icons.refresh),
-                    label: const Text('再読み込み'),
+                    label: const Text('Reload'),
                     onPressed: () => notifier.send(const HomeAction.onAppear()),
                   ),
                 ],
@@ -156,7 +156,7 @@ class HomeScreen extends HookConsumerWidget {
 
 String _friendlyErrorMessage(String error) {
   if (error.contains('Network') || error.contains('SocketException')) {
-    return 'ネットワークに接続できません。\n機内モードや通信環境をご確認ください。';
+    return 'Could not connect to the network.\nPlease check airplane mode or your network environment.';
   }
-  return 'エラーが発生しました: $error';
+  return 'An error occurred: $error';
 }

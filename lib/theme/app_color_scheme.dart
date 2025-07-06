@@ -15,11 +15,11 @@ final ColorScheme appColorScheme = ColorScheme(
 final ColorScheme appDarkColorScheme = ColorScheme(
   brightness: Brightness.dark,
   primary: const Color(0xFF212121),
-  onPrimary: Colors.white, // 白
+  onPrimary: Colors.white,
   secondary: const Color(0xFF424242),
-  onSecondary: Colors.white, // 白
+  onSecondary: Colors.white,
   surface: const Color(0xFF121212),
-  onSurface: Colors.white, // 白
+  onSurface: Colors.white,
   error: Colors.red.shade400,
   onError: Colors.black,
 );
