@@ -19,6 +19,16 @@ class App extends StatelessWidget {
           elevation: 0,
         ),
       ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: appDarkColorScheme,
+        scaffoldBackgroundColor: appDarkColorScheme.surface,
+        appBarTheme: AppBarTheme(
+          backgroundColor: appDarkColorScheme.surface,
+          foregroundColor: appDarkColorScheme.onSurface,
+          elevation: 0,
+        ),
+      ),
       routerConfig: router,
     );
   }
