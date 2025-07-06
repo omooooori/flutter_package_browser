@@ -21,28 +21,29 @@ Screenshots and demo videos are stored in the following directories:
 - `docs/videos/`      : Demo videos (MP4, GIF, etc)
 
 #### Android
-- Home (Light mode)
-  ![Android Home Light](docs/screenshots/android_home_light.png)
-- Detail (Light mode)
-  ![Android Detail Light](docs/screenshots/android_detail_light.png)
-- Home (Dark mode)
-  ![Android Home Dark](docs/screenshots/android_home_dark.png)
-- Detail (Dark mode)
-  ![Android Detail Dark](docs/screenshots/android_detail_dark.png)
+<p align="center">
+  <img src="docs/screenshots/android_home_light.png" alt="Android Home Light" width="180"/>
+  <img src="docs/screenshots/android_detail_light.png" alt="Android Detail Light" width="180"/>
+</p>
+<p align="center">
+  <img src="docs/screenshots/android_home_dark.png" alt="Android Home Dark" width="180"/>
+  <img src="docs/screenshots/android_detail_dark.png" alt="Android Detail Dark" width="180"/>
+</p>
 
 #### iOS
-- Home (Light mode)
-  ![iOS Home Light](docs/screenshots/ios_home_light.png)
-- Detail (Light mode)
-  ![iOS Detail Light](docs/screenshots/ios_detail_light.png)
-- Home (Dark mode)
-  ![iOS Home Dark](docs/screenshots/ios_home_dark.png)
-- Detail (Dark mode)
-  ![iOS Detail Dark](docs/screenshots/ios_detail_dark.png)
+<p align="center">
+  <img src="docs/screenshots/ios_home_light.png" alt="iOS Home Light" width="180"/>
+  <img src="docs/screenshots/ios_detail_light.png" alt="iOS Detail Light" width="180"/>
+</p>
+<p align="center">
+  <img src="docs/screenshots/ios_home_dark.png" alt="iOS Home Dark" width="180"/>
+  <img src="docs/screenshots/ios_detail_dark.png" alt="iOS Detail Dark" width="180"/>
+</p>
 
 #### Demo
-- Demo Video
-  ![Demo](docs/videos/demo.webm)
+<p align="center">
+  <a href="docs/videos/demo.gif">Demo Video</a>
+</p>
 
 
 ## Environment
