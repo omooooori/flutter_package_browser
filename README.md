@@ -12,7 +12,7 @@ This app fetches and displays package listings and their detailed metadata via t
 
 ## Environment
 
-- Flutter SDK: 3.29.3
+- Flutter SDK: 3.32.5
 - Dart SDK: bundled with Flutter
 - Platform: Android / iOS
 
