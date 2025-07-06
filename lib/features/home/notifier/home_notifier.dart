@@ -33,11 +33,32 @@ class HomeNotifier extends AutoDisposeNotifier<HomeUiState> {
     state = state.copyWith(isLoading: true, errorMessage: null);
     try {
       final result = await _repository.fetchPackageNames();
-      state = state.copyWith(packages: result.packages, isLoading: false);
+      state = state.copyWith(
+        packages: result.packages,
+        isLoading: false,
+        nextUrl: result.nextUrl,
+      );
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         errorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<void> loadMore() async {
+    if (state.isLoadingMore || state.nextUrl == null) return;
+    state = state.copyWith(isLoadingMore: true);
+    try {
+      final result = await _repository.fetchPackageNames(nextUrl: state.nextUrl);
+      state = state.copyWith(
+        packages: [...state.packages, ...result.packages],
+        nextUrl: result.nextUrl,
+        isLoadingMore: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoadingMore: false,
       );
     }
   }

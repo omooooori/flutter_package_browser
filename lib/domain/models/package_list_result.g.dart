@@ -11,7 +11,11 @@ _PackageListResult _$PackageListResultFromJson(Map<String, dynamic> json) =>
       packages: (json['packages'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      nextUrl: json['next_url'] as String?,
     );
 
 Map<String, dynamic> _$PackageListResultToJson(_PackageListResult instance) =>
-    <String, dynamic>{'packages': instance.packages};
+    <String, dynamic>{
+      'packages': instance.packages,
+      'next_url': instance.nextUrl,
+    };

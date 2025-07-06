@@ -61,4 +61,59 @@ void main() {
     notifier.consumeEffect();
     expect(container.read(homeEffectProvider), const HomeEffect.none());
   });
+
+  test('loadMore adds additional packages to the list', () async {
+    // Initial load
+    when(() => mockRepository.fetchPackageNames()).thenAnswer((_) async =>
+        PackageListResult(packages: ['a', 'b'], nextUrl: '/next'));
+    final notifier = container.read(homeNotifierProvider.notifier);
+    await notifier.send(const HomeAction.onAppear());
+
+    // Additional load
+    when(() => mockRepository.fetchPackageNames(nextUrl: '/next')).thenAnswer((_) async =>
+        PackageListResult(packages: ['c', 'd'], nextUrl: null));
+    await notifier.loadMore();
+
+    final state = container.read(homeNotifierProvider);
+    expect(state.packages, equals(['a', 'b', 'c', 'd']));
+    expect(state.nextUrl, isNull);
+    expect(state.isLoadingMore, isFalse);
+  });
+
+  test('loadMore does not update errorMessage and only resets isLoadingMore on exception', () async {
+    // Initial load
+    when(() => mockRepository.fetchPackageNames()).thenAnswer((_) async =>
+        PackageListResult(packages: ['a'], nextUrl: '/next'));
+    final notifier = container.read(homeNotifierProvider.notifier);
+    await notifier.send(const HomeAction.onAppear());
+
+    // Additional load with exception
+    when(() => mockRepository.fetchPackageNames(nextUrl: '/next')).thenThrow(Exception('fail'));
+    await notifier.loadMore();
+
+    final state = container.read(homeNotifierProvider);
+    expect(state.packages, equals(['a']));
+    expect(state.errorMessage, isNull);
+    expect(state.isLoadingMore, isFalse);
+  });
+
+  test('loadMore does nothing if nextUrl is null', () async {
+    // Initial load (nextUrl: null)
+    when(() => mockRepository.fetchPackageNames()).thenAnswer((_) async =>
+        PackageListResult(packages: ['a'], nextUrl: null));
+    final notifier = container.read(homeNotifierProvider.notifier);
+    await notifier.send(const HomeAction.onAppear());
+
+    // loadMore should not call fetchPackageNames again if nextUrl is null
+    await notifier.loadMore();
+
+    // Should be called only once (initial load)
+    verify(() => mockRepository.fetchPackageNames()).called(1);
+    // Should never be called with a non-null nextUrl
+    verifyNever(() => mockRepository.fetchPackageNames(nextUrl: any(that: isNotNull, named: 'nextUrl')));
+    final state = container.read(homeNotifierProvider);
+    expect(state.packages, equals(['a']));
+    expect(state.nextUrl, isNull);
+    expect(state.isLoadingMore, isFalse);
+  });
 }

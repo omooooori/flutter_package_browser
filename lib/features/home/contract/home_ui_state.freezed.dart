@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeUiState {
 
- List<String> get packages; bool get isLoading; String? get errorMessage;
+ List<String> get packages; bool get isLoading; String? get errorMessage; String? get nextUrl; bool get isLoadingMore;
 /// Create a copy of HomeUiState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $HomeUiStateCopyWith<HomeUiState> get copyWith => _$HomeUiStateCopyWithImpl<Home
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeUiState&&const DeepCollectionEquality().equals(other.packages, packages)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeUiState&&const DeepCollectionEquality().equals(other.packages, packages)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.nextUrl, nextUrl) || other.nextUrl == nextUrl)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(packages),isLoading,errorMessage);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(packages),isLoading,errorMessage,nextUrl,isLoadingMore);
 
 @override
 String toString() {
-  return 'HomeUiState(packages: $packages, isLoading: $isLoading, errorMessage: $errorMessage)';
+  return 'HomeUiState(packages: $packages, isLoading: $isLoading, errorMessage: $errorMessage, nextUrl: $nextUrl, isLoadingMore: $isLoadingMore)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $HomeUiStateCopyWith<$Res>  {
   factory $HomeUiStateCopyWith(HomeUiState value, $Res Function(HomeUiState) _then) = _$HomeUiStateCopyWithImpl;
 @useResult
 $Res call({
- List<String> packages, bool isLoading, String? errorMessage
+ List<String> packages, bool isLoading, String? errorMessage, String? nextUrl, bool isLoadingMore
 });
 
 
@@ -62,12 +62,14 @@ class _$HomeUiStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeUiState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? packages = null,Object? isLoading = null,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? packages = null,Object? isLoading = null,Object? errorMessage = freezed,Object? nextUrl = freezed,Object? isLoadingMore = null,}) {
   return _then(_self.copyWith(
 packages: null == packages ? _self.packages : packages // ignore: cast_nullable_to_non_nullable
 as List<String>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,nextUrl: freezed == nextUrl ? _self.nextUrl : nextUrl // ignore: cast_nullable_to_non_nullable
+as String?,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -152,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> packages,  bool isLoading,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> packages,  bool isLoading,  String? errorMessage,  String? nextUrl,  bool isLoadingMore)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeUiState() when $default != null:
-return $default(_that.packages,_that.isLoading,_that.errorMessage);case _:
+return $default(_that.packages,_that.isLoading,_that.errorMessage,_that.nextUrl,_that.isLoadingMore);case _:
   return orElse();
 
 }
@@ -173,10 +175,10 @@ return $default(_that.packages,_that.isLoading,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> packages,  bool isLoading,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> packages,  bool isLoading,  String? errorMessage,  String? nextUrl,  bool isLoadingMore)  $default,) {final _that = this;
 switch (_that) {
 case _HomeUiState():
-return $default(_that.packages,_that.isLoading,_that.errorMessage);case _:
+return $default(_that.packages,_that.isLoading,_that.errorMessage,_that.nextUrl,_that.isLoadingMore);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +195,10 @@ return $default(_that.packages,_that.isLoading,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> packages,  bool isLoading,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> packages,  bool isLoading,  String? errorMessage,  String? nextUrl,  bool isLoadingMore)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeUiState() when $default != null:
-return $default(_that.packages,_that.isLoading,_that.errorMessage);case _:
+return $default(_that.packages,_that.isLoading,_that.errorMessage,_that.nextUrl,_that.isLoadingMore);case _:
   return null;
 
 }
@@ -208,7 +210,7 @@ return $default(_that.packages,_that.isLoading,_that.errorMessage);case _:
 
 
 class _HomeUiState implements HomeUiState {
-  const _HomeUiState({final  List<String> packages = const [], this.isLoading = false, this.errorMessage}): _packages = packages;
+  const _HomeUiState({final  List<String> packages = const [], this.isLoading = false, this.errorMessage, this.nextUrl, this.isLoadingMore = false}): _packages = packages;
   
 
  final  List<String> _packages;
@@ -220,6 +222,8 @@ class _HomeUiState implements HomeUiState {
 
 @override@JsonKey() final  bool isLoading;
 @override final  String? errorMessage;
+@override final  String? nextUrl;
+@override@JsonKey() final  bool isLoadingMore;
 
 /// Create a copy of HomeUiState
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +235,16 @@ _$HomeUiStateCopyWith<_HomeUiState> get copyWith => __$HomeUiStateCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeUiState&&const DeepCollectionEquality().equals(other._packages, _packages)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeUiState&&const DeepCollectionEquality().equals(other._packages, _packages)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.nextUrl, nextUrl) || other.nextUrl == nextUrl)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_packages),isLoading,errorMessage);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_packages),isLoading,errorMessage,nextUrl,isLoadingMore);
 
 @override
 String toString() {
-  return 'HomeUiState(packages: $packages, isLoading: $isLoading, errorMessage: $errorMessage)';
+  return 'HomeUiState(packages: $packages, isLoading: $isLoading, errorMessage: $errorMessage, nextUrl: $nextUrl, isLoadingMore: $isLoadingMore)';
 }
 
 
@@ -251,7 +255,7 @@ abstract mixin class _$HomeUiStateCopyWith<$Res> implements $HomeUiStateCopyWith
   factory _$HomeUiStateCopyWith(_HomeUiState value, $Res Function(_HomeUiState) _then) = __$HomeUiStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<String> packages, bool isLoading, String? errorMessage
+ List<String> packages, bool isLoading, String? errorMessage, String? nextUrl, bool isLoadingMore
 });
 
 
@@ -268,12 +272,14 @@ class __$HomeUiStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeUiState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? packages = null,Object? isLoading = null,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? packages = null,Object? isLoading = null,Object? errorMessage = freezed,Object? nextUrl = freezed,Object? isLoadingMore = null,}) {
   return _then(_HomeUiState(
 packages: null == packages ? _self._packages : packages // ignore: cast_nullable_to_non_nullable
 as List<String>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,nextUrl: freezed == nextUrl ? _self.nextUrl : nextUrl // ignore: cast_nullable_to_non_nullable
+as String?,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

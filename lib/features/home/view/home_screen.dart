@@ -13,6 +13,7 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final uiState = ref.watch(homeNotifierProvider);
     final notifier = ref.read(homeNotifierProvider.notifier);
+    final scrollController = useScrollController();
 
     ref.listen(homeEffectProvider, (prev, effect) {
       if (effect is NavigateToDetails) {
@@ -48,6 +49,18 @@ class HomeScreen extends HookConsumerWidget {
       }
       return null;
     }, [uiState.errorMessage]);
+
+    useEffect(() {
+      void onScroll() {
+        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 100) {
+          if (uiState.nextUrl != null && !uiState.isLoadingMore) {
+            notifier.loadMore();
+          }
+        }
+      }
+      scrollController.addListener(onScroll);
+      return () => scrollController.removeListener(onScroll);
+    }, [uiState.nextUrl, uiState.isLoadingMore]);
 
     return Scaffold(
       appBar: AppBar(
@@ -106,9 +119,16 @@ class HomeScreen extends HookConsumerWidget {
               await notifier.send(const HomeAction.onAppear());
             },
             child: ListView.separated(
-              itemCount: uiState.packages.length,
+              controller: scrollController,
+              itemCount: uiState.packages.length + (uiState.isLoadingMore ? 1 : 0),
               separatorBuilder: (_, __) => const Divider(height: 1),
               itemBuilder: (context, index) {
+                if (index >= uiState.packages.length) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
                 final name = uiState.packages[index];
                 return ListTile(
                   title: Text(name),

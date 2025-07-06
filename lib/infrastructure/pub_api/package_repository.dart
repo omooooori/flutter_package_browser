@@ -14,7 +14,7 @@ class PackageRepository {
 
   PackageRepository(this._client);
 
-  Future<PackageListResult> fetchPackageNames() async {
+  Future<PackageListResult> fetchPackageNames({String? nextUrl}) async {
     if (kIsWeb) {
       await Future.delayed(const Duration(milliseconds: 500));
       return const PackageListResult(
@@ -22,11 +22,13 @@ class PackageRepository {
       );
     }
 
-    final json = await _client.get('/api/packages');
+    final path = nextUrl ?? '/api/packages';
+    final json = await _client.get(path);
     final packages = json['packages'] as List;
     final names = packages.map((pkg) => pkg['name'] as String).toList();
+    final next = json['next_url'] as String?;
 
-    return PackageListResult(packages: names);
+    return PackageListResult(packages: names, nextUrl: next);
   }
 
   Future<PackageDetailResult> fetchPackageDetail(String name) async {

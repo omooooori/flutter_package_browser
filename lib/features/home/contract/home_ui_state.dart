@@ -8,5 +8,7 @@ abstract class HomeUiState with _$HomeUiState {
     @Default([]) List<String> packages,
     @Default(false) bool isLoading,
     String? errorMessage,
+    String? nextUrl,
+    @Default(false) bool isLoadingMore,
   }) = _HomeUiState;
 }

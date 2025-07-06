@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PackageListResult {
 
- List<String> get packages;
+ List<String> get packages;@JsonKey(name: 'next_url') String? get nextUrl;
 /// Create a copy of PackageListResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PackageListResultCopyWith<PackageListResult> get copyWith => _$PackageListResul
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PackageListResult&&const DeepCollectionEquality().equals(other.packages, packages));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PackageListResult&&const DeepCollectionEquality().equals(other.packages, packages)&&(identical(other.nextUrl, nextUrl) || other.nextUrl == nextUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(packages));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(packages),nextUrl);
 
 @override
 String toString() {
-  return 'PackageListResult(packages: $packages)';
+  return 'PackageListResult(packages: $packages, nextUrl: $nextUrl)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PackageListResultCopyWith<$Res>  {
   factory $PackageListResultCopyWith(PackageListResult value, $Res Function(PackageListResult) _then) = _$PackageListResultCopyWithImpl;
 @useResult
 $Res call({
- List<String> packages
+ List<String> packages,@JsonKey(name: 'next_url') String? nextUrl
 });
 
 
@@ -65,10 +65,11 @@ class _$PackageListResultCopyWithImpl<$Res>
 
 /// Create a copy of PackageListResult
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? packages = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? packages = null,Object? nextUrl = freezed,}) {
   return _then(_self.copyWith(
 packages: null == packages ? _self.packages : packages // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<String>,nextUrl: freezed == nextUrl ? _self.nextUrl : nextUrl // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -153,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> packages)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> packages, @JsonKey(name: 'next_url')  String? nextUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PackageListResult() when $default != null:
-return $default(_that.packages);case _:
+return $default(_that.packages,_that.nextUrl);case _:
   return orElse();
 
 }
@@ -174,10 +175,10 @@ return $default(_that.packages);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> packages)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> packages, @JsonKey(name: 'next_url')  String? nextUrl)  $default,) {final _that = this;
 switch (_that) {
 case _PackageListResult():
-return $default(_that.packages);case _:
+return $default(_that.packages,_that.nextUrl);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +195,10 @@ return $default(_that.packages);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> packages)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> packages, @JsonKey(name: 'next_url')  String? nextUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _PackageListResult() when $default != null:
-return $default(_that.packages);case _:
+return $default(_that.packages,_that.nextUrl);case _:
   return null;
 
 }
@@ -209,7 +210,7 @@ return $default(_that.packages);case _:
 @JsonSerializable()
 
 class _PackageListResult implements PackageListResult {
-  const _PackageListResult({required final  List<String> packages}): _packages = packages;
+  const _PackageListResult({required final  List<String> packages, @JsonKey(name: 'next_url') this.nextUrl}): _packages = packages;
   factory _PackageListResult.fromJson(Map<String, dynamic> json) => _$PackageListResultFromJson(json);
 
  final  List<String> _packages;
@@ -219,6 +220,7 @@ class _PackageListResult implements PackageListResult {
   return EqualUnmodifiableListView(_packages);
 }
 
+@override@JsonKey(name: 'next_url') final  String? nextUrl;
 
 /// Create a copy of PackageListResult
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +235,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PackageListResult&&const DeepCollectionEquality().equals(other._packages, _packages));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PackageListResult&&const DeepCollectionEquality().equals(other._packages, _packages)&&(identical(other.nextUrl, nextUrl) || other.nextUrl == nextUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_packages));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_packages),nextUrl);
 
 @override
 String toString() {
-  return 'PackageListResult(packages: $packages)';
+  return 'PackageListResult(packages: $packages, nextUrl: $nextUrl)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$PackageListResultCopyWith<$Res> implements $PackageListRe
   factory _$PackageListResultCopyWith(_PackageListResult value, $Res Function(_PackageListResult) _then) = __$PackageListResultCopyWithImpl;
 @override @useResult
 $Res call({
- List<String> packages
+ List<String> packages,@JsonKey(name: 'next_url') String? nextUrl
 });
 
 
@@ -270,10 +272,11 @@ class __$PackageListResultCopyWithImpl<$Res>
 
 /// Create a copy of PackageListResult
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? packages = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? packages = null,Object? nextUrl = freezed,}) {
   return _then(_PackageListResult(
 packages: null == packages ? _self._packages : packages // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as List<String>,nextUrl: freezed == nextUrl ? _self.nextUrl : nextUrl // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
