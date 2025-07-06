@@ -82,6 +82,10 @@ class HomeScreen extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
                     icon: const Icon(Icons.refresh),
                     label: const Text('再読み込み'),
                     onPressed: () => notifier.send(const HomeAction.onAppear()),
