@@ -23,33 +23,35 @@ class DetailsScreen extends ConsumerWidget {
 
           return Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildSection(
-                  title: 'Overview',
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(description),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Text(publisherId,
-                            style: Theme.of(context).textTheme.labelSmall),
-                      ),
-                    ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSection(
+                    title: 'Overview',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(description),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(publisherId,
+                              style: Theme.of(context).textTheme.labelSmall),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                _buildSection(
-                  title: 'Versions',
-                  child: Column(
-                    children: versions
-                        .map((v) => ListTile(title: Text(v)))
-                        .toList(),
+                  const SizedBox(height: 24),
+                  _buildSection(
+                    title: 'Versions',
+                    child: Column(
+                      children: versions
+                          .map((v) => ListTile(title: Text(v)))
+                          .toList(),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
