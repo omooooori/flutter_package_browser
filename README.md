@@ -43,3 +43,20 @@ lib/
 - Scalability: Easy to extend when adding more screens or features
 - Testability: Each layer can be tested in isolation
 - Familiarity: Follows common Flutter community practices (e.g., Riverpod + GoRouter)
+
+## 🔁 Code Generation
+
+This project uses [freezed](https://pub.dev/packages/freezed) and [build_runner](https://pub.dev/packages/build_runner) for code generation.
+
+Use the provided Makefile to run code generation commands:
+
+```bash
+# Generate code once
+make build
+
+# Watch for changes and regenerate automatically
+make watch
+
+# Clean generated files
+make clean
+```
