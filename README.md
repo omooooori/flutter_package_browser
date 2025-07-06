@@ -9,7 +9,7 @@ This app fetches and displays package listings and their detailed metadata via t
 
 - Browse the list of packages from pub.dev
 - View detailed information about each package (description, versions, publisher)
-- Open homepage or repository links in a browser
+- Open the package page on pub.dev in a browser
 - Built with Riverpod (state management) and GoRouter (navigation)
 
 ## Environment
@@ -38,16 +38,24 @@ This project uses GitHub Actions for Continuous Integration.
 
 ```
 lib/
-├── features/       # UI, state, action, and effect per feature
-│ └── details/
-│ ├── view/         # UI widgets
-│ ├── contract/     # UIState, Action, Effect (freezed)
-│ └── notifier/     # Notifier implementation
-├── infrastructure/ # API clients and repositories
-├── domain/         # Optional: shared models and interfaces
-├── router.dart     # GoRouter route definitions
-├── app.dart        # App root
-└── main.dart       # Entry point
+├── features/
+│   ├── details/
+│   │   ├── view/
+│   │   ├── contract/
+│   │   └── notifier/
+│   ├── home/
+│   │   ├── view/
+│   │   ├── contract/
+│   │   └── notifier/
+├── domain/
+│   └── models/
+├── infrastructure/
+│   └── pub_api/
+├── theme/
+│   └── app_color_scheme.dart
+├── router.dart
+├── app.dart
+└── main.dart
 ```
 
 ## 🔁 Code Generation
