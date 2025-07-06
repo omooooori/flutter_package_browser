@@ -14,6 +14,8 @@ class HomeScreen extends HookConsumerWidget {
     final uiState = ref.watch(homeNotifierProvider);
     final notifier = ref.read(homeNotifierProvider.notifier);
     final scrollController = useScrollController();
+    final opacity = useState<double>(1.0);
+    final duration = const Duration(milliseconds: 300);
 
     ref.listen(homeEffectProvider, (prev, effect) {
       if (effect is NavigateToDetails) {
@@ -116,25 +118,34 @@ class HomeScreen extends HookConsumerWidget {
             color: Theme.of(context).colorScheme.onPrimary,
             backgroundColor: Theme.of(context).colorScheme.primary,
             onRefresh: () async {
+              // fade out
+              opacity.value = 0.0;
+              await Future.delayed(duration);
               await notifier.send(const HomeAction.onAppear());
+              // fade in
+              opacity.value = 1.0;
             },
-            child: ListView.separated(
-              controller: scrollController,
-              itemCount: uiState.packages.length + (uiState.isLoadingMore ? 1 : 0),
-              separatorBuilder: (_, __) => const Divider(height: 1),
-              itemBuilder: (context, index) {
-                if (index >= uiState.packages.length) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Center(child: CircularProgressIndicator()),
+            child: AnimatedOpacity(
+              opacity: opacity.value,
+              duration: duration,
+              child: ListView.separated(
+                controller: scrollController,
+                itemCount: uiState.packages.length + (uiState.isLoadingMore ? 1 : 0),
+                separatorBuilder: (_, __) => const Divider(height: 1),
+                itemBuilder: (context, index) {
+                  if (index >= uiState.packages.length) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                  final name = uiState.packages[index];
+                  return ListTile(
+                    title: Text(name),
+                    onTap: () => notifier.send(HomeAction.onItemTapped(name)),
                   );
-                }
-                final name = uiState.packages[index];
-                return ListTile(
-                  title: Text(name),
-                  onTap: () => notifier.send(HomeAction.onItemTapped(name)),
-                );
-              },
+                },
+              ),
             ),
           );
         },
