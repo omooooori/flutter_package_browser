@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PackageListResult {
 
- List<String> get packages;@JsonKey(name: 'next_url') String? get nextUrl;
+ List<String> get packages; String? get nextUrl;
 /// Create a copy of PackageListResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $PackageListResultCopyWith<$Res>  {
   factory $PackageListResultCopyWith(PackageListResult value, $Res Function(PackageListResult) _then) = _$PackageListResultCopyWithImpl;
 @useResult
 $Res call({
- List<String> packages,@JsonKey(name: 'next_url') String? nextUrl
+ List<String> packages, String? nextUrl
 });
 
 
@@ -154,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> packages, @JsonKey(name: 'next_url')  String? nextUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> packages,  String? nextUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PackageListResult() when $default != null:
 return $default(_that.packages,_that.nextUrl);case _:
@@ -175,7 +175,7 @@ return $default(_that.packages,_that.nextUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> packages, @JsonKey(name: 'next_url')  String? nextUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> packages,  String? nextUrl)  $default,) {final _that = this;
 switch (_that) {
 case _PackageListResult():
 return $default(_that.packages,_that.nextUrl);case _:
@@ -195,7 +195,7 @@ return $default(_that.packages,_that.nextUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> packages, @JsonKey(name: 'next_url')  String? nextUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> packages,  String? nextUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _PackageListResult() when $default != null:
 return $default(_that.packages,_that.nextUrl);case _:
@@ -210,7 +210,7 @@ return $default(_that.packages,_that.nextUrl);case _:
 @JsonSerializable()
 
 class _PackageListResult implements PackageListResult {
-  const _PackageListResult({required final  List<String> packages, @JsonKey(name: 'next_url') this.nextUrl}): _packages = packages;
+  const _PackageListResult({required final  List<String> packages, this.nextUrl}): _packages = packages;
   factory _PackageListResult.fromJson(Map<String, dynamic> json) => _$PackageListResultFromJson(json);
 
  final  List<String> _packages;
@@ -220,7 +220,7 @@ class _PackageListResult implements PackageListResult {
   return EqualUnmodifiableListView(_packages);
 }
 
-@override@JsonKey(name: 'next_url') final  String? nextUrl;
+@override final  String? nextUrl;
 
 /// Create a copy of PackageListResult
 /// with the given fields replaced by the non-null parameter values.
@@ -255,7 +255,7 @@ abstract mixin class _$PackageListResultCopyWith<$Res> implements $PackageListRe
   factory _$PackageListResultCopyWith(_PackageListResult value, $Res Function(_PackageListResult) _then) = __$PackageListResultCopyWithImpl;
 @override @useResult
 $Res call({
- List<String> packages,@JsonKey(name: 'next_url') String? nextUrl
+ List<String> packages, String? nextUrl
 });
 
 
