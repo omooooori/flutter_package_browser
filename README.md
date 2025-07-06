@@ -18,31 +18,27 @@ This app fetches and displays package listings and their detailed metadata via t
 
 ## Dependencies
 
-- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
-- [go_router](https://pub.dev/packages/go_router)
+- [flutter_riverpod](https://pub.dev/packages/flutter_riverpod)
 - [flutter_hooks](https://pub.dev/packages/flutter_hooks)
+- [go_router](https://pub.dev/packages/go_router)
+- [freezed](https://pub.dev/packages/freezed)
+- [build_runner](https://pub.dev/packages/build_runner)
 
 ## Architecture
 
-This project adopts a simple layered architecture inspired by clean architecture principles.
-The structure is organized as follows:
-
 ```
 lib/
-├── features/          # UI and screen logic for each feature
-├── infrastructure/    # API clients and data sources
-├── domain/            # Models and interfaces (optional)
-├── router.dart        # Navigation with GoRouter
-├── app.dart           # Root widget
-└── main.dart          # App entry point
+├── features/       # UI, state, action, and effect per feature
+│ └── details/
+│ ├── view/         # UI widgets
+│ ├── contract/     # UIState, Action, Effect (freezed)
+│ └── notifier/     # Notifier implementation
+├── infrastructure/ # API clients and repositories
+├── domain/         # Optional: shared models and interfaces
+├── router.dart     # GoRouter route definitions
+├── app.dart        # App root
+└── main.dart       # Entry point
 ```
-
-### Why this architecture?
-
-- Separation of concerns: Clear boundaries between UI, state, and data layers
-- Scalability: Easy to extend when adding more screens or features
-- Testability: Each layer can be tested in isolation
-- Familiarity: Follows common Flutter community practices (e.g., Riverpod + GoRouter)
 
 ## 🔁 Code Generation
 
