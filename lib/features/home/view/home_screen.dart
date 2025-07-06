@@ -23,7 +23,7 @@ class HomeScreen extends ConsumerWidget {
               final name = packages[index];
               return ListTile(
                 title: Text(name),
-                onTap: () => context.go('/details/$name'),
+                onTap: () => context.push('/details/$name'),
               );
             },
           );
