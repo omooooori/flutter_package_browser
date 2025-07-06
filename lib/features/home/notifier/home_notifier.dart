@@ -9,9 +9,7 @@ final homeEffectProvider = StateProvider<HomeEffect>(
 );
 
 final homeNotifierProvider =
-    AutoDisposeNotifierProvider<HomeNotifier, HomeUiState>(
-  HomeNotifier.new,
-);
+    AutoDisposeNotifierProvider<HomeNotifier, HomeUiState>(HomeNotifier.new);
 
 class HomeNotifier extends AutoDisposeNotifier<HomeUiState> {
   late final PackageRepository _repository;
@@ -39,10 +37,7 @@ class HomeNotifier extends AutoDisposeNotifier<HomeUiState> {
         nextUrl: result.nextUrl,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        errorMessage: e.toString(),
-      );
+      state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }
   }
 
@@ -50,22 +45,23 @@ class HomeNotifier extends AutoDisposeNotifier<HomeUiState> {
     if (state.isLoadingMore || state.nextUrl == null) return;
     state = state.copyWith(isLoadingMore: true);
     try {
-      final result = await _repository.fetchPackageNames(nextUrl: state.nextUrl);
+      final result = await _repository.fetchPackageNames(
+        nextUrl: state.nextUrl,
+      );
       state = state.copyWith(
         packages: [...state.packages, ...result.packages],
         nextUrl: result.nextUrl,
         isLoadingMore: false,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoadingMore: false,
-      );
+      state = state.copyWith(isLoadingMore: false);
     }
   }
 
   void _navigateTo(String packageName) {
-    ref.read(homeEffectProvider.notifier).state =
-        HomeEffect.navigateToDetails(packageName);
+    ref.read(homeEffectProvider.notifier).state = HomeEffect.navigateToDetails(
+      packageName,
+    );
   }
 
   void consumeEffect() {

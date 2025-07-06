@@ -16,7 +16,9 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            packageDetailsNotifierProvider.overrideWith(() => _MockDetailsNotifier()),
+            packageDetailsNotifierProvider.overrideWith(
+              () => _MockDetailsNotifier(),
+            ),
           ],
           child: const MaterialApp(
             home: DetailsScreen(packageName: testPackage),
@@ -34,13 +36,14 @@ void main() {
 class _MockDetailsNotifier extends PackageDetailsNotifier {
   _MockDetailsNotifier();
   @override
-  PackageDetailsUiState build(String packageName) => const PackageDetailsUiState(
-    description: 'This is a test description.',
-    publisherId: 'test_publisher',
-    versions: ['1.2.3'],
-  );
+  PackageDetailsUiState build(String packageName) =>
+      const PackageDetailsUiState(
+        description: 'This is a test description.',
+        publisherId: 'test_publisher',
+        versions: ['1.2.3'],
+      );
   @override
   Future<void> send(PackageDetailsAction action) async {}
   @override
   void consumeEffect() {}
-} 
+}

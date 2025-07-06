@@ -13,7 +13,9 @@ class DetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final uiState = ref.watch(packageDetailsNotifierProvider(packageName));
-    final notifier = ref.read(packageDetailsNotifierProvider(packageName).notifier);
+    final notifier = ref.read(
+      packageDetailsNotifierProvider(packageName).notifier,
+    );
 
     ref.listen(packageDetailsEffectProvider, (prev, next) async {
       if (next is OpenUrl) {
@@ -93,9 +95,10 @@ class DetailsScreen extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
           const SizedBox(height: 8),
           child,
         ],

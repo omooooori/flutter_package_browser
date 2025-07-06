@@ -15,9 +15,7 @@ void main() {
           overrides: [
             homeNotifierProvider.overrideWith(() => _MockHomeNotifier()),
           ],
-          child: const MaterialApp(
-            home: HomeScreen(),
-          ),
+          child: const MaterialApp(home: HomeScreen()),
         ),
       );
       await tester.pumpAndSettle();
@@ -36,4 +34,4 @@ class _MockHomeNotifier extends HomeNotifier {
   Future<void> loadMore() async {}
   @override
   void consumeEffect() {}
-} 
+}

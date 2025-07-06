@@ -5,5 +5,6 @@ part 'home_effect.freezed.dart';
 @freezed
 sealed class HomeEffect with _$HomeEffect {
   const factory HomeEffect.none() = None;
-  const factory HomeEffect.navigateToDetails(String packageName) = NavigateToDetails;
+  const factory HomeEffect.navigateToDetails(String packageName) =
+      NavigateToDetails;
 }

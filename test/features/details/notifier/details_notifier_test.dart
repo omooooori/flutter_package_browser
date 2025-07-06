@@ -14,9 +14,9 @@ void main() {
 
   setUp(() {
     mockRepository = MockPackageRepository();
-    container = ProviderContainer(overrides: [
-      packageRepositoryProvider.overrideWithValue(mockRepository),
-    ]);
+    container = ProviderContainer(
+      overrides: [packageRepositoryProvider.overrideWithValue(mockRepository)],
+    );
     addTearDown(container.dispose);
   });
 
@@ -27,14 +27,16 @@ void main() {
     const versions = ['3.0.0', '2.10.0'];
 
     when(() => mockRepository.fetchPackageDetail(packageName)).thenAnswer(
-          (_) async => PackageDetailResult(
+      (_) async => PackageDetailResult(
         description: description,
         publisherId: publisher,
         versions: versions,
       ),
     );
 
-    final notifier = container.read(packageDetailsNotifierProvider(packageName).notifier);
+    final notifier = container.read(
+      packageDetailsNotifierProvider(packageName).notifier,
+    );
     await notifier.send(const PackageDetailsAction.onAppear());
 
     final state = container.read(packageDetailsNotifierProvider(packageName));
@@ -46,10 +48,13 @@ void main() {
   test('onAppear sets empty state on failure', () async {
     const packageName = 'invalid';
 
-    when(() => mockRepository.fetchPackageDetail(any(that: isA<String>())))
-        .thenThrow(Exception('Not Found'));
+    when(
+      () => mockRepository.fetchPackageDetail(any(that: isA<String>())),
+    ).thenThrow(Exception('Not Found'));
 
-    final notifier = container.read(packageDetailsNotifierProvider(packageName).notifier);
+    final notifier = container.read(
+      packageDetailsNotifierProvider(packageName).notifier,
+    );
     await notifier.send(const PackageDetailsAction.onAppear());
 
     final state = container.read(packageDetailsNotifierProvider(packageName));

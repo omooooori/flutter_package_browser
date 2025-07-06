@@ -54,12 +54,14 @@ class HomeScreen extends HookConsumerWidget {
 
     useEffect(() {
       void onScroll() {
-        if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 100) {
+        if (scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 100) {
           if (uiState.nextUrl != null && !uiState.isLoadingMore) {
             notifier.loadMore();
           }
         }
       }
+
       scrollController.addListener(onScroll);
       return () => scrollController.removeListener(onScroll);
     }, [uiState.nextUrl, uiState.isLoadingMore]);
@@ -130,7 +132,8 @@ class HomeScreen extends HookConsumerWidget {
               duration: duration,
               child: ListView.separated(
                 controller: scrollController,
-                itemCount: uiState.packages.length + (uiState.isLoadingMore ? 1 : 0),
+                itemCount:
+                    uiState.packages.length + (uiState.isLoadingMore ? 1 : 0),
                 separatorBuilder: (_, __) => const Divider(height: 1),
                 itemBuilder: (context, index) {
                   if (index >= uiState.packages.length) {

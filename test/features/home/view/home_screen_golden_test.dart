@@ -36,4 +36,4 @@ void main() {
       matchesGoldenFile('goldens/home_screen_golden.png'),
     );
   });
-} 
+}

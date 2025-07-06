@@ -44,10 +44,9 @@ class PackageRepository {
     final detail = await _client.get('/api/packages/$name');
     final publisher = await _client.get('/api/packages/$name/publisher');
 
-    final versions = (detail['versions'] as List)
-        .map((v) => v['version'] as String)
-        .toList()
-      ..sort(((a, b) => b.compareTo(a))); // newest first
+    final versions =
+        (detail['versions'] as List).map((v) => v['version'] as String).toList()
+          ..sort(((a, b) => b.compareTo(a))); // newest first
 
     return PackageDetailResult(
       description: detail['latest']['pubspec']['description'] ?? '',

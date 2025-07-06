@@ -5,13 +5,15 @@ import 'package:flutter_package_browser/infrastructure/pub_api/package_repositor
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final packageDetailsEffectProvider = StateProvider<PackageDetailsEffect>(
-      (ref) => const PackageDetailsEffect.none(),
+  (ref) => const PackageDetailsEffect.none(),
 );
 
-final packageDetailsNotifierProvider = AutoDisposeNotifierProviderFamily<
-    PackageDetailsNotifier, PackageDetailsUiState, String>(
-  PackageDetailsNotifier.new,
-);
+final packageDetailsNotifierProvider =
+    AutoDisposeNotifierProviderFamily<
+      PackageDetailsNotifier,
+      PackageDetailsUiState,
+      String
+    >(PackageDetailsNotifier.new);
 
 class PackageDetailsNotifier
     extends AutoDisposeFamilyNotifier<PackageDetailsUiState, String> {
@@ -53,6 +55,6 @@ class PackageDetailsNotifier
 
   void consumeEffect() {
     ref.read(packageDetailsEffectProvider.notifier).state =
-    const PackageDetailsEffect.none();
+        const PackageDetailsEffect.none();
   }
 }
