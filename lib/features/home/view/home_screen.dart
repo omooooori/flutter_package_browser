@@ -99,16 +99,23 @@ class HomeScreen extends HookConsumerWidget {
             return const Center(child: Text('No packages found'));
           }
 
-          return ListView.separated(
-            itemCount: uiState.packages.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
-            itemBuilder: (context, index) {
-              final name = uiState.packages[index];
-              return ListTile(
-                title: Text(name),
-                onTap: () => notifier.send(HomeAction.onItemTapped(name)),
-              );
+          return RefreshIndicator(
+            color: Theme.of(context).colorScheme.onPrimary,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            onRefresh: () async {
+              await notifier.send(const HomeAction.onAppear());
             },
+            child: ListView.separated(
+              itemCount: uiState.packages.length,
+              separatorBuilder: (_, __) => const Divider(height: 1),
+              itemBuilder: (context, index) {
+                final name = uiState.packages[index];
+                return ListTile(
+                  title: Text(name),
+                  onTap: () => notifier.send(HomeAction.onItemTapped(name)),
+                );
+              },
+            ),
           );
         },
       ),
