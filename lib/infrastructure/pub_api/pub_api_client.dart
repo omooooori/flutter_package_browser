@@ -1,5 +1,10 @@
 import 'dart:convert';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+
+final pubApiClientProvider = Provider<PubApiClient>((ref) {
+  return PubApiClient();
+});
 
 class PubApiClient {
   final _baseUrl = 'https://pub.dev';

@@ -1,30 +1,42 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_package_browser/domain/models/package_details_result.dart';
+import 'package:flutter_package_browser/domain/models/package_list_result.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'pub_api_client.dart';
+
+final packageRepositoryProvider = Provider<PackageRepository>((ref) {
+  final client = ref.read(pubApiClientProvider);
+  return PackageRepository(client);
+});
 
 class PackageRepository {
   final PubApiClient _client;
 
   PackageRepository(this._client);
 
-  Future<List<String>> fetchPackageNames() async {
+  Future<PackageListResult> fetchPackageNames() async {
     if (kIsWeb) {
       await Future.delayed(const Duration(milliseconds: 500));
-      return ['flutter', 'riverpod', 'http', 'provider', 'go_router'];
+      return const PackageListResult(
+        packages: ['flutter', 'riverpod', 'http', 'provider', 'go_router'],
+      );
     }
 
     final json = await _client.get('/api/packages');
     final packages = json['packages'] as List;
-    return packages.map((pkg) => pkg['name'] as String).toList();
+    final names = packages.map((pkg) => pkg['name'] as String).toList();
+
+    return PackageListResult(packages: names);
   }
 
-  Future<Map<String, dynamic>> fetchPackageDetail(String name) async {
+  Future<PackageDetailResult> fetchPackageDetail(String name) async {
     if (kIsWeb) {
       await Future.delayed(const Duration(milliseconds: 300));
-      return {
-        'description': 'A mock description for $name.',
-        'versions': ['3.0.0', '2.1.0', '1.0.0'],
-        'publisherId': 'mock.publisher'
-      };
+      return PackageDetailResult(
+        description: 'A mock description for $name.',
+        versions: ['3.0.0', '2.1.0', '1.0.0'],
+        publisherId: 'mock.publisher',
+      );
     }
 
     final detail = await _client.get('/api/packages/$name');
@@ -35,10 +47,10 @@ class PackageRepository {
         .toList()
       ..sort(((a, b) => b.compareTo(a))); // newest first
 
-    return {
-      'description': detail['latest']['pubspec']['description'] ?? '',
-      'versions': versions,
-      'publisherId': publisher['publisherId'] ?? '',
-    };
+    return PackageDetailResult(
+      description: detail['latest']['pubspec']['description'] ?? '',
+      versions: versions,
+      publisherId: publisher['publisherId'] ?? '',
+    );
   }
 }
