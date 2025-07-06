@@ -29,48 +29,33 @@ class HomeScreen extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 0,
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/pubdev_icon.png',
-              width: 32,
-              height: 32,
-            ),
-            const SizedBox(width: 12),
-            const Text(
-              'pub.dev',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: SafeArea(
-        child: ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: uiState.packages.length,
-          itemBuilder: (context, index) {
-            final name = uiState.packages[index];
-            return Card(
-              elevation: 2,
-              margin: const EdgeInsets.symmetric(vertical: 8),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              child: ListTile(
-                leading: CircleAvatar(child: Text(name[0].toUpperCase())),
+      appBar: AppBar(title: const Text('Packages')),
+      body: Builder(
+        builder: (_) {
+          if (uiState.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (uiState.errorMessage != null) {
+            return Center(child: Text('Error: ${uiState.errorMessage}'));
+          }
+
+          if (uiState.packages.isEmpty) {
+            return const Center(child: Text('No packages found'));
+          }
+
+          return ListView.separated(
+            itemCount: uiState.packages.length,
+            separatorBuilder: (_, __) => const Divider(height: 1),
+            itemBuilder: (context, index) {
+              final name = uiState.packages[index];
+              return ListTile(
                 title: Text(name),
-                subtitle: const Text('Tap to see more details'),
-                trailing: const Icon(Icons.chevron_right),
                 onTap: () => notifier.send(HomeAction.onItemTapped(name)),
-              ),
-            );
-          },
-        ),
+              );
+            },
+          );
+        },
       ),
     );
   }
