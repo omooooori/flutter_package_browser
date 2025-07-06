@@ -33,12 +33,16 @@ class PackageDetailsNotifier
   }
 
   Future<void> _load() async {
-    final detail = await _repository.fetchPackageDetail(_packageName);
-    state = state.copyWith(
-      description: detail.description,
-      versions: detail.versions,
-      publisherId: detail.publisherId,
-    );
+    try {
+      final detail = await _repository.fetchPackageDetail(_packageName);
+      state = state.copyWith(
+        description: detail.description,
+        versions: detail.versions,
+        publisherId: detail.publisherId,
+      );
+    } catch (_) {
+      state = const PackageDetailsUiState();
+    }
   }
 
   void _openLink() {
