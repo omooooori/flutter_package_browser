@@ -29,7 +29,7 @@ class HomeScreen extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Packages')),
+      appBar: AppBar(title: const Text('pub.dev')),
       body: Builder(
         builder: (_) {
           if (uiState.isLoading) {
