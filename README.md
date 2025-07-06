@@ -12,6 +12,39 @@ This app fetches and displays package listings and their detailed metadata via t
 - Open the package page on pub.dev in a browser
 - Built with Riverpod (state management) and GoRouter (navigation)
 
+
+## Screenshots & Videos
+
+Screenshots and demo videos are stored in the following directories:
+
+- `docs/screenshots/` : App screenshots (Android/iOS, light/dark mode)
+- `docs/videos/`      : Demo videos (MP4, GIF, etc)
+
+#### Android
+- Home (Light mode)
+  ![Android Home Light](docs/screenshots/android_home_light.png)
+- Detail (Light mode)
+  ![Android Detail Light](docs/screenshots/android_detail_light.png)
+- Home (Dark mode)
+  ![Android Home Dark](docs/screenshots/android_home_dark.png)
+- Detail (Dark mode)
+  ![Android Detail Dark](docs/screenshots/android_detail_dark.png)
+
+#### iOS
+- Home (Light mode)
+  ![iOS Home Light](docs/screenshots/ios_home_light.png)
+- Detail (Light mode)
+  ![iOS Detail Light](docs/screenshots/ios_detail_light.png)
+- Home (Dark mode)
+  ![iOS Home Dark](docs/screenshots/ios_home_dark.png)
+- Detail (Dark mode)
+  ![iOS Detail Dark](docs/screenshots/ios_detail_dark.png)
+
+#### Demo
+- Demo Video
+  ![Demo](docs/videos/demo.webm)
+
+
 ## Environment
 
 - Flutter SDK: 3.32.5
