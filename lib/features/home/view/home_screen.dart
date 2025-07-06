@@ -28,8 +28,38 @@ class HomeScreen extends HookConsumerWidget {
       return null;
     }, const []);
 
+    useEffect(() {
+      if (uiState.errorMessage != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('エラー'),
+              content: Text(_friendlyErrorMessage(uiState.errorMessage!)),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        });
+      }
+      return null;
+    }, [uiState.errorMessage]);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('pub.dev')),
+      appBar: AppBar(
+        title: const Text('pub.dev'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            tooltip: '再読み込み',
+            onPressed: () => notifier.send(const HomeAction.onAppear()),
+          ),
+        ],
+      ),
       body: Builder(
         builder: (_) {
           if (uiState.isLoading) {
@@ -37,7 +67,28 @@ class HomeScreen extends HookConsumerWidget {
           }
 
           if (uiState.errorMessage != null) {
-            return Center(child: Text('Error: ${uiState.errorMessage}'));
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.error, color: Colors.red, size: 48),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      _friendlyErrorMessage(uiState.errorMessage!),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.refresh),
+                    label: const Text('再読み込み'),
+                    onPressed: () => notifier.send(const HomeAction.onAppear()),
+                  ),
+                ],
+              ),
+            );
           }
 
           if (uiState.packages.isEmpty) {
@@ -59,4 +110,11 @@ class HomeScreen extends HookConsumerWidget {
       ),
     );
   }
+}
+
+String _friendlyErrorMessage(String error) {
+  if (error.contains('Network') || error.contains('SocketException')) {
+    return 'ネットワークに接続できません。\n機内モードや通信環境をご確認ください。';
+  }
+  return 'エラーが発生しました: $error';
 }
